@@ -16,8 +16,7 @@ pipeline {
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
-        sh 'pwd'
-        sh 'whoami'
+        sh 'cat /root/aa.txt'
         sh 'which trufflehos'
         sh '/usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git > trufflehog'
         sh 'cat trufflehog'
