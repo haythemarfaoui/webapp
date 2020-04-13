@@ -17,7 +17,6 @@ pipeline {
       steps {
         sh 'rm trufflehog || true'
         sh 'sudo cat /root/aa.txt'
-        sh 'sudo which trufflehos'
         sh 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git > trufflehog'
         sh 'cat trufflehog'
       }
