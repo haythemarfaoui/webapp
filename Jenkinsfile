@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh 'rm trufflehog || true'
         sh 'ls /usr/local/bin'
-        sh 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git > trufflehog'
+        sh '"sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git" > trufflehog'
         sh 'cat trufflehog'
       }
     }
