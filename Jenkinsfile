@@ -17,22 +17,17 @@ pipeline {
       steps {
         sh 'rm trufflehog || true'
         sh 'ls /usr/local/bin'
-        bat 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git > trufflehog'
+        sh 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git | tee trufflehog'
         sh 'cat trufflehog'
       }
     }
- /*   
+    
     stage ('Source Composition Analysis') {
       steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
-         sh 'chmod +x owasp-dependency-check.sh'
-         sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-        
+         dependencyCheck additionalArguments: '', odcInstallation: 'Dependency'
       }
     }
-    
+  /*  
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
