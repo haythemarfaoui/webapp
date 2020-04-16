@@ -16,8 +16,7 @@ pipeline {
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
-        sh 'docker run --rm -ti -v $PWD:/target yellowmegaman/container-trufflehog --regex --entropy=False https://github.com/haythemarfaoui/webapp.git > trufflehog'
-        sh 'cat trufflehog'
+        sh 'docker run --rm -ti -v $PWD:/target yellowmegaman/container-trufflehog --regex --entropy=False --json https://github.com/haythemarfaoui/webapp.git | tee trufflehog'
       }
     } 
    /* 
