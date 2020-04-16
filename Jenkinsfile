@@ -32,6 +32,13 @@ pipeline {
       }
     } */
    
+    stage ('Source Composition Analysis') {
+      steps {
+          dependencyCheck additionalArguments: '', odcInstallation: 'dependency'
+          dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+       }
+    }
+    
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
