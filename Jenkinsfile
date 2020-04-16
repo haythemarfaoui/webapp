@@ -53,14 +53,27 @@ pipeline {
            }       
     }
     
-/*    
+   
     stage ('DAST') {
       steps {
-        sshagent(['zap']) {
-         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.232.158.44 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.232.202.25:8080/webapp/" || true'
-        }
+         sh 'CONTAINER_ID=$(docker run -u zap -p 2375:2375 -d owasp/zap2docker-stable zap.sh -daemon -port 2375 -host 127.0.0.1 -config api.disablekey=true -config scanner.attackOnStart=true -config view.mode=attack -config connection.dnsTtlSuccessfulQueries=-1 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true)'
+        sh 'TARGET_URL=http://localhost:9090/webapp/'
+        sh 'docker exec $CONTAINER_ID zap-cli -p 2375 status -t 120 && docker exec $CONTAINER_ID zap-cli -p 2375 open-url $TARGET_URL'
+        sh 'docker exec $CONTAINER_ID zap-cli -p 2375 spider $TARGET_URL'
+        sh 'docker exec $CONTAINER_ID zap-cli -p 2375 active-scan -r $TARGET_URL'
+        sh 'docker exec $CONTAINER_ID zap-cli -p 2375 alerts'
+        sh '''
+        divider==================================================================
+        printf "\n"
+        printf "$divider"
+        printf "ZAP-daemon log output follows"
+        printf "$divider"
+        printf "\n"
+        '''
+        sh 'docker logs $CONTAINER_ID'
+        sh 'docker stop $CONTAINER_ID'
       }
     }
-    */
+    
   }
 }
