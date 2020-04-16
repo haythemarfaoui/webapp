@@ -57,7 +57,8 @@ pipeline {
     stage ('DAST') {
       steps {
         sh 'docker run --name zap -u zap -p 2375:2375 -d owasp/zap2docker-stable zap.sh -daemon -port 2375 -host 127.0.0.1 -config api.disablekey=true -config scanner.attackOnStart=true -config view.mode=attack -config connection.dnsTtlSuccessfulQueries=-1 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true'
-        sh 'docker exec zap zap-cli -p 2375 status -t 120 && docker exec zap zap-cli -p 2375 open-url http://localhost:9090/webapp/'
+        sh 'docker exec zap zap-cli -p 2375 status -t 120'
+        sh 'docker exec zap zap-cli -p 2375 open-url http://localhost:9090/webapp/'
         sh 'docker exec zap zap-cli -p 2375 spider http://localhost:9090/webapp/'
         sh 'docker exec zap zap-cli -p 2375 active-scan -r http://localhost:9090/webapp/'
         sh 'docker exec zap zap-cli -p 2375 alerts'
