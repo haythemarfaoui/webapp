@@ -12,15 +12,14 @@ pipeline {
             ''' 
       }
     }
- /*   
+   
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
-        sh 'ls /usr/local/bin'
-        sh 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git | tee trufflehog'
+        sh 'docker run --rm -ti -v $PWD:/target yellowmegaman/container-trufflehog --regex --entropy=False https://github.com/haythemarfaoui/webapp.git > trufflehog'
         sh 'cat trufflehog'
       }
-    } */
+    } 
    /* 
     stage ('Source Composition Analysis') {
       steps {
