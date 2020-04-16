@@ -31,7 +31,7 @@ pipeline {
         
       }
     } */
-  /*  
+   
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
@@ -39,7 +39,7 @@ pipeline {
           sh 'cat target/sonar/report-task.txt'
         }
       }
-    } */
+    } 
     
     stage ('Build') {
       steps {
