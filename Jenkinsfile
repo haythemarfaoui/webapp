@@ -17,6 +17,7 @@ pipeline {
       steps {
         sh 'rm trufflehog || true'
         sh 'docker run --rm -v $PWD:/target yellowmegaman/container-trufflehog --regex --entropy=False --json https://github.com/haythemarfaoui/webapp.git | tee trufflehog'
+        sh 'cat trufflehog'
       }
     } 
    /* 
