@@ -45,7 +45,7 @@ pipeline {
     }
     
     stage ('Deploy-To-Tomcat') {
-            steps {
+           steps {
                 sh 'cp target/*.war /opt/tomcat/latest/webapps/webapp.war'      
            }       
     }
