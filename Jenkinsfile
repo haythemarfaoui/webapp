@@ -71,6 +71,7 @@ pipeline {
         '''
         sh 'docker logs zap'
         sh 'docker stop zap'
+        sh 'docker rm zap'
       }
     }
     
