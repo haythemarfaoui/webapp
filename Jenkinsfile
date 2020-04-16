@@ -20,7 +20,7 @@ pipeline {
         sh 'cat trufflehog'
       }
     } 
-    
+    /*
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
@@ -30,7 +30,7 @@ pipeline {
          sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
         
       }
-    }
+    } */
   /*  
     stage ('SAST') {
       steps {
