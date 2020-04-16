@@ -12,7 +12,7 @@ pipeline {
             ''' 
       }
     }
-    
+ /*   
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
@@ -20,14 +20,14 @@ pipeline {
         sh 'sudo /usr/local/bin/trufflehog --json https://github.com/haythemarfaoui/webapp.git | tee trufflehog'
         sh 'cat trufflehog'
       }
-    }
-    
+    } */
+   /* 
     stage ('Source Composition Analysis') {
       steps {
          dependencyCheck additionalArguments: '', odcInstallation: 'Dependency', skipOnScmChange: true
          dependencyCheckPublisher pattern: 'dependency-check-report.xml'
       }
-    }
+    } */
   /*  
     stage ('SAST') {
       steps {
@@ -47,7 +47,7 @@ pipeline {
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war root@172.17.0.3:/prod/apache-tomcat-8.5.54/webapps/webapp.war'
+                sh 'cp target/*.war /opt/tomcat/latest/webapps/webapp.war'
               }      
            }       
     }
